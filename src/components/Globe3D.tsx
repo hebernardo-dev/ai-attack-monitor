@@ -54,6 +54,9 @@ export const Globe3D: React.FC<Globe3DProps> = ({
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
     container.appendChild(renderer.domElement);
 
     // 2. Earth Globe Core (Vivid, rich natural colors matching 2D map)
@@ -63,35 +66,24 @@ export const Globe3D: React.FC<Globe3DProps> = ({
 
     const textureLoader = new THREE.TextureLoader();
     const earthMap = textureLoader.load('/earth_texture.jpg');
+    earthMap.colorSpace = THREE.SRGBColorSpace;
     const earthNormal = textureLoader.load('/earth_normal.jpg');
 
-    // MeshStandardMaterial preserves the rich deep blue oceans and vibrant continents without glare blowout
+    // High fidelity MeshStandardMaterial: zero white glare, natural earth saturation
     const globeMaterial = new THREE.MeshStandardMaterial({
       map: earthMap,
       normalMap: earthNormal,
-      normalScale: new THREE.Vector2(0.5, 0.5),
-      roughness: 0.65, // Matte-soft to eliminate washed-out white specular reflections
+      normalScale: new THREE.Vector2(0.4, 0.4),
+      roughness: 0.7,
       metalness: 0.05,
-      color: new THREE.Color(0xffffff),
     });
 
     const globeGeometry = new THREE.SphereGeometry(globeRadius, 64, 64);
     const globeMesh = new THREE.Mesh(globeGeometry, globeMaterial);
     globeGroup.add(globeMesh);
 
-    // Subtle coordinate grid rings (ultra-lightweight, 2% opacity so it never clouds terrain)
-    const gridGeometry = new THREE.SphereGeometry(globeRadius * 1.005, 36, 18);
-    const gridMaterial = new THREE.MeshBasicMaterial({
-      color: 0x00e5ff,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.02,
-    });
-    const gridMesh = new THREE.Mesh(gridGeometry, gridMaterial);
-    globeGroup.add(gridMesh);
-
-    // Ultra-soft Atmospheric Edge Glow (very delicate rim only on glancing angles, 100% transparent on continents)
-    const atmosphereGeometry = new THREE.SphereGeometry(globeRadius * 1.025, 64, 64);
+    // Realistic Outer Space Atmosphere Glow (BackSide only, completely behind the globe in space)
+    const atmosphereGeometry = new THREE.SphereGeometry(globeRadius * 1.14, 64, 64);
     const atmosphereMaterial = new THREE.ShaderMaterial({
       vertexShader: `
         varying vec3 vNormal;
@@ -103,19 +95,18 @@ export const Globe3D: React.FC<Globe3DProps> = ({
       fragmentShader: `
         varying vec3 vNormal;
         void main() {
-          // Silhouette rim only: 0 over facing surface, gently rising at edge
-          float rim = 1.0 - max(0.0, dot(vNormal, vec3(0.0, 0.0, 1.0)));
-          float intensity = pow(rim, 4.5) * 0.35;
-          gl_FragColor = vec4(0.0, 0.75, 1.0, intensity);
+          // Glow intensity drops off smoothly into space
+          float intensity = pow(0.62 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.8);
+          gl_FragColor = vec4(0.08, 0.58, 0.98, 1.0) * intensity * 0.42;
         }
       `,
       blending: THREE.AdditiveBlending,
-      side: THREE.FrontSide,
+      side: THREE.BackSide, // BackSide ensures ZERO atmosphere touches or veils the Earth's surface
       transparent: true,
       depthWrite: false,
     });
     const atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
-    globeGroup.add(atmosphereMesh);
+    scene.add(atmosphereMesh);
 
     // Convert Lat/Lng to Vector3 on Globe
     function latLngToVector3(lat: number, lng: number, radius: number): THREE.Vector3 {
@@ -161,7 +152,7 @@ export const Globe3D: React.FC<Globe3DProps> = ({
       markerGroup.add(sprite);
 
       // Radar pulse ring
-      const ringGeo = new THREE.RingGeometry(1.5, 2.6, 32);
+      const ringGeo = new THREE.RingGeometry(1.4, 2.5, 32);
       const ringMat = new THREE.MeshBasicMaterial({
         color: new THREE.Color(hexColor),
         side: THREE.DoubleSide,
@@ -204,16 +195,16 @@ export const Globe3D: React.FC<Globe3DProps> = ({
       }
     }
 
-    // 5. Lighting (Rich, natural balance to make earth colors pop)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
+    // 5. Lighting (Rich, natural contrast with deep ocean blues & vibrant continents)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.15);
-    dirLight1.position.set(150, 100, 200);
+    const dirLight1 = new THREE.DirectionalLight(0xfffaed, 1.8);
+    dirLight1.position.set(160, 110, 180);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0x0284c7, 0.35);
-    dirLight2.position.set(-150, -80, -100);
+    const dirLight2 = new THREE.DirectionalLight(0x1e3a8a, 0.5);
+    dirLight2.position.set(-160, -80, -120);
     scene.add(dirLight2);
 
     // Initial globe orientation
