@@ -8,7 +8,7 @@ interface Globe3DProps {
   selectedIncident: Incident | null;
 }
 
-// Function to generate smooth glowing radial gradient sprite texture
+// Function to generate smooth glowing radial gradient sprite texture without white center
 function createGlowSpriteTexture(coreColor: string) {
   const canvas = document.createElement('canvas');
   canvas.width = 128;
@@ -16,10 +16,11 @@ function createGlowSpriteTexture(coreColor: string) {
   const ctx = canvas.getContext('2d');
   if (ctx) {
     const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-    gradient.addColorStop(0, '#ffffff');             // 100% solid white hot core
-    gradient.addColorStop(0.2, coreColor);           // 100% vibrant color
-    gradient.addColorStop(0.5, coreColor + 'aa');    // ~66% opacity
-    gradient.addColorStop(0.75, coreColor + '33');   // ~20% opacity
+    // Pure vibrant category color (NO white core)
+    gradient.addColorStop(0, coreColor);             // 100% pure saturated color
+    gradient.addColorStop(0.35, coreColor);          // Rich solid core
+    gradient.addColorStop(0.65, coreColor + '99');   // Smooth gradient falloff
+    gradient.addColorStop(0.85, coreColor + '33');   // Soft outer aura
     gradient.addColorStop(1, 'rgba(0,0,0,0)');       // 0% smooth fade at edges
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 128, 128);
@@ -55,7 +56,7 @@ export const Globe3D: React.FC<Globe3DProps> = ({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 2. Earth Globe Core (Vivid, crisp texture, no milky layer)
+    // 2. Earth Globe Core (Vivid, rich natural colors matching 2D map)
     const globeRadius = 75;
     const globeGroup = new THREE.Group();
     scene.add(globeGroup);
@@ -63,38 +64,34 @@ export const Globe3D: React.FC<Globe3DProps> = ({
     const textureLoader = new THREE.TextureLoader();
     const earthMap = textureLoader.load('/earth_texture.jpg');
     const earthNormal = textureLoader.load('/earth_normal.jpg');
-    const earthSpecular = textureLoader.load('/earth_specular.jpg');
 
-    // High fidelity material: vibrant pure color, crisp terrain
-    const globeMaterial = new THREE.MeshPhongMaterial({
+    // MeshStandardMaterial preserves the rich deep blue oceans and vibrant continents without glare blowout
+    const globeMaterial = new THREE.MeshStandardMaterial({
       map: earthMap,
       normalMap: earthNormal,
-      specularMap: earthSpecular,
-      normalScale: new THREE.Vector2(0.85, 0.85),
-      specular: new THREE.Color(0x3366aa),
-      shininess: 35,
-      color: new THREE.Color(0xffffff), // Pure white preserves 100% of real texture color
-      emissive: new THREE.Color(0x060e1d), // Deep contrast for night oceans
-      emissiveIntensity: 0.5,
+      normalScale: new THREE.Vector2(0.5, 0.5),
+      roughness: 0.65, // Matte-soft to eliminate washed-out white specular reflections
+      metalness: 0.05,
+      color: new THREE.Color(0xffffff),
     });
 
     const globeGeometry = new THREE.SphereGeometry(globeRadius, 64, 64);
     const globeMesh = new THREE.Mesh(globeGeometry, globeMaterial);
     globeGroup.add(globeMesh);
 
-    // Subtle coordinate grid rings (lightweight, doesn't obscure land)
+    // Subtle coordinate grid rings (ultra-lightweight, 2% opacity so it never clouds terrain)
     const gridGeometry = new THREE.SphereGeometry(globeRadius * 1.005, 36, 18);
     const gridMaterial = new THREE.MeshBasicMaterial({
       color: 0x00e5ff,
       wireframe: true,
       transparent: true,
-      opacity: 0.035,
+      opacity: 0.02,
     });
     const gridMesh = new THREE.Mesh(gridGeometry, gridMaterial);
     globeGroup.add(gridMesh);
 
-    // Atmospheric Edge Glow (Clean Fresnel outer rim, not washing the center)
-    const atmosphereGeometry = new THREE.SphereGeometry(globeRadius * 1.05, 64, 64);
+    // Ultra-soft Atmospheric Edge Glow (very delicate rim only on glancing angles, 100% transparent on continents)
+    const atmosphereGeometry = new THREE.SphereGeometry(globeRadius * 1.025, 64, 64);
     const atmosphereMaterial = new THREE.ShaderMaterial({
       vertexShader: `
         varying vec3 vNormal;
@@ -106,13 +103,16 @@ export const Globe3D: React.FC<Globe3DProps> = ({
       fragmentShader: `
         varying vec3 vNormal;
         void main() {
-          float intensity = pow(0.58 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.2);
-          gl_FragColor = vec4(0.0, 0.9, 1.0, 1.0) * intensity * 0.7;
+          // Silhouette rim only: 0 over facing surface, gently rising at edge
+          float rim = 1.0 - max(0.0, dot(vNormal, vec3(0.0, 0.0, 1.0)));
+          float intensity = pow(rim, 4.5) * 0.35;
+          gl_FragColor = vec4(0.0, 0.75, 1.0, intensity);
         }
       `,
       blending: THREE.AdditiveBlending,
-      side: THREE.BackSide,
+      side: THREE.FrontSide,
       transparent: true,
+      depthWrite: false,
     });
     const atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
     globeGroup.add(atmosphereMesh);
@@ -145,28 +145,28 @@ export const Globe3D: React.FC<Globe3DProps> = ({
       const pos = latLngToVector3(inc.lat, inc.lng, globeRadius + 1.2);
       const hexColor = severityColorsHex[inc.severity] || '#ef4444';
 
-      // Radial Glowing Sprite: 100% solid center, smoothly fading to transparent edges
+      // Radial Glowing Sprite: 100% solid category color center, no white, smooth falloff
       const glowTexture = createGlowSpriteTexture(hexColor);
       const spriteMaterial = new THREE.SpriteMaterial({
         map: glowTexture,
-        blending: THREE.AdditiveBlending,
+        blending: THREE.NormalBlending, // NormalBlending prevents color from washing out to white
         transparent: true,
         depthWrite: false,
       });
 
       const sprite = new THREE.Sprite(spriteMaterial);
       sprite.position.copy(pos);
-      sprite.scale.set(6.5, 6.5, 1);
+      sprite.scale.set(6.0, 6.0, 1);
       sprite.userData = { incident: inc };
       markerGroup.add(sprite);
 
       // Radar pulse ring
-      const ringGeo = new THREE.RingGeometry(1.6, 3.0, 32);
+      const ringGeo = new THREE.RingGeometry(1.5, 2.6, 32);
       const ringMat = new THREE.MeshBasicMaterial({
         color: new THREE.Color(hexColor),
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.75,
+        opacity: 0.65,
       });
       const ringMesh = new THREE.Mesh(ringGeo, ringMat);
       ringMesh.position.copy(pos);
@@ -204,16 +204,16 @@ export const Globe3D: React.FC<Globe3DProps> = ({
       }
     }
 
-    // 5. Lighting (Crisp, High-Definition Illuminators)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    // 5. Lighting (Rich, natural balance to make earth colors pop)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.2);
-    dirLight1.position.set(160, 110, 190);
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.15);
+    dirLight1.position.set(150, 100, 200);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0x00e5ff, 0.9);
-    dirLight2.position.set(-160, -90, -110);
+    const dirLight2 = new THREE.DirectionalLight(0x0284c7, 0.35);
+    dirLight2.position.set(-150, -80, -100);
     scene.add(dirLight2);
 
     // Initial globe orientation

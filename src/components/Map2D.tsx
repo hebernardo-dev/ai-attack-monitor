@@ -96,14 +96,14 @@ export const Map2D: React.FC<Map2DProps> = ({
                   animation: 'radar-pulse 2s infinite ease-out',
                 }}
               />
-              {/* Core dot with 100% solid white-hot center and smooth radial falloff */}
+              {/* Core dot with 100% solid category color center and smooth radial falloff (NO white core) */}
               <div
                 style={{
-                  width: isSelected ? '18px' : '15px',
-                  height: isSelected ? '18px' : '15px',
+                  width: isSelected ? '18px' : '14px',
+                  height: isSelected ? '18px' : '14px',
                   borderRadius: '50%',
-                  background: `radial-gradient(circle, #ffffff 0%, ${color} 35%, ${color}aa 70%, transparent 100%)`,
-                  boxShadow: `0 0 16px ${color}, 0 0 28px ${color}66`,
+                  background: `radial-gradient(circle, ${color} 0%, ${color} 45%, ${color}88 75%, transparent 100%)`,
+                  boxShadow: `0 0 10px ${color}, 0 0 20px ${color}55`,
                   transition: 'all 0.2s',
                 }}
               />
