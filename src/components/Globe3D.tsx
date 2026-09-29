@@ -41,73 +41,38 @@ export const Globe3D: React.FC<Globe3DProps> = ({
     const globeGroup = new THREE.Group();
     scene.add(globeGroup);
 
-    // Procedural Earth Texture Canvas
-    const canvas = document.createElement('canvas');
-    canvas.width = 2048;
-    canvas.height = 1024;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      // Ocean background
-      ctx.fillStyle = '#080d1a';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // High-Resolution Photorealistic Earth Texture & Bump Maps
+    const textureLoader = new THREE.TextureLoader();
+    const earthMap = textureLoader.load('/earth_texture.jpg');
+    const earthNormal = textureLoader.load('/earth_normal.jpg');
+    const earthSpecular = textureLoader.load('/earth_specular.jpg');
 
-      // Grid lines (lat/long)
-      ctx.strokeStyle = 'rgba(0, 229, 255, 0.04)';
-      ctx.lineWidth = 1;
-      for (let x = 0; x < canvas.width; x += 64) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += 64) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-
-      // Procedural continents approximation using dots & shapes for high-tech aesthetic
-      ctx.fillStyle = 'rgba(23, 44, 84, 0.9)';
-      
-      // Americas
-      ctx.beginPath();
-      ctx.ellipse(540, 320, 180, 140, 0, 0, Math.PI * 2);
-      ctx.ellipse(650, 680, 130, 220, 0.2, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Europe & Africa
-      ctx.beginPath();
-      ctx.ellipse(1080, 290, 130, 100, 0, 0, Math.PI * 2);
-      ctx.ellipse(1120, 580, 150, 180, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Asia & Australia
-      ctx.beginPath();
-      ctx.ellipse(1520, 320, 260, 160, 0, 0, Math.PI * 2);
-      ctx.ellipse(1680, 720, 110, 90, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Glowing city clusters (cyan & gold dots)
-      ctx.fillStyle = 'rgba(0, 229, 255, 0.75)';
-      for (let i = 0; i < 400; i++) {
-        const cx = (Math.random() * 0.9 + 0.05) * canvas.width;
-        const cy = (Math.random() * 0.7 + 0.15) * canvas.height;
-        ctx.fillRect(cx, cy, 2, 2);
-      }
-    }
-
-    const globeTexture = new THREE.CanvasTexture(canvas);
     const globeMaterial = new THREE.MeshPhongMaterial({
-      map: globeTexture,
+      map: earthMap,
+      normalMap: earthNormal,
+      specularMap: earthSpecular,
+      normalScale: new THREE.Vector2(1.2, 1.2),
+      specular: new THREE.Color(0x224488),
       shininess: 25,
-      specular: new THREE.Color(0x112244),
-      bumpScale: 0.05,
+      color: new THREE.Color(0x99ccff),
+      emissive: new THREE.Color(0x0a1224),
+      emissiveIntensity: 0.8,
     });
 
     const globeGeometry = new THREE.SphereGeometry(globeRadius, 64, 64);
     const globeMesh = new THREE.Mesh(globeGeometry, globeMaterial);
     globeGroup.add(globeMesh);
+
+    // Topological Wireframe & Coordinate Rings (Matching reference design)
+    const gridGeometry = new THREE.SphereGeometry(globeRadius * 1.01, 36, 18);
+    const gridMaterial = new THREE.MeshBasicMaterial({
+      color: 0x00e5ff,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.06,
+    });
+    const gridMesh = new THREE.Mesh(gridGeometry, gridMaterial);
+    globeGroup.add(gridMesh);
 
     // Glowing Atmosphere Shell (Outer Rim)
     const atmosphereGeometry = new THREE.SphereGeometry(globeRadius * 1.08, 64, 64);
