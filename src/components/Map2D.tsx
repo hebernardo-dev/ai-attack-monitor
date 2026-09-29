@@ -51,21 +51,9 @@ export const Map2D: React.FC<Map2DProps> = ({
         <line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(0, 229, 255, 0.15)" strokeWidth="1" strokeDasharray="4 4" />
         <line x1="500" y1="0" x2="500" y2="500" stroke="rgba(0, 229, 255, 0.15)" strokeWidth="1" strokeDasharray="4 4" />
 
-        {/* Simplified high-tech landmass silhouettes */}
-        <g fill="rgba(19, 30, 50, 0.7)" stroke="rgba(0, 229, 255, 0.2)" strokeWidth="0.7">
-          {/* North America */}
-          <path d="M 120 70 L 320 80 L 300 210 L 220 240 L 150 180 Z" />
-          {/* South America */}
-          <path d="M 270 270 L 350 290 L 320 440 L 280 400 Z" />
-          {/* Europe */}
-          <path d="M 460 90 L 580 90 L 560 190 L 480 180 Z" />
-          {/* Africa */}
-          <path d="M 470 200 L 610 210 L 580 390 L 520 380 Z" />
-          {/* Asia */}
-          <path d="M 600 70 L 890 80 L 850 250 L 630 240 Z" />
-          {/* Oceania */}
-          <path d="M 780 320 L 910 330 L 880 420 L 770 400 Z" />
-        </g>
+        {/* Real World Equirectangular Map Image with Cyber Blue Tint */}
+        <image href="/earth_texture.jpg" x="0" y="0" width="1000" height="500" opacity="0.65" preserveAspectRatio="none" />
+        <rect width="1000" height="500" fill="rgba(5, 7, 12, 0.4)" />
       </svg>
 
       {/* Incident Threat Markers */}
