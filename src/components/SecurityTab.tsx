@@ -31,7 +31,7 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ onClose }) => {
               </h1>
             </div>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-              Medidas implementadas para proteger o AIAttackMonitor contra invasões, ataques DDoS, scrapers maliciosos e injeção de dados.
+              Medidas implementadas para proteger o AI Attack Monitor contra invasões, ataques DDoS, scrapers maliciosos e injeção de dados.
             </p>
           </div>
           <button onClick={onClose} className="glass-button">

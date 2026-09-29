@@ -51,9 +51,8 @@ export const Map2D: React.FC<Map2DProps> = ({
         <line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(0, 229, 255, 0.15)" strokeWidth="1" strokeDasharray="4 4" />
         <line x1="500" y1="0" x2="500" y2="500" stroke="rgba(0, 229, 255, 0.15)" strokeWidth="1" strokeDasharray="4 4" />
 
-        {/* Real World Equirectangular Map Image with Cyber Blue Tint */}
-        <image href="/earth_texture.jpg" x="0" y="0" width="1000" height="500" opacity="0.65" preserveAspectRatio="none" />
-        <rect width="1000" height="500" fill="rgba(5, 7, 12, 0.4)" />
+        {/* Real World Equirectangular Map Image - Crisp & Vivid */}
+        <image href="/earth_texture.jpg" x="0" y="0" width="1000" height="500" opacity="0.92" preserveAspectRatio="none" />
       </svg>
 
       {/* Incident Threat Markers */}
@@ -87,24 +86,24 @@ export const Map2D: React.FC<Map2DProps> = ({
               {/* Radar pulse ring */}
               <div
                 style={{
-                  width: '24px',
-                  height: '24px',
+                  width: '30px',
+                  height: '30px',
                   borderRadius: '50%',
-                  border: `2px solid ${color}`,
+                  border: `1.5px solid ${color}`,
                   position: 'absolute',
                   top: '-7px',
                   left: '-7px',
                   animation: 'radar-pulse 2s infinite ease-out',
                 }}
               />
-              {/* Core dot */}
+              {/* Core dot with 100% solid white-hot center and smooth radial falloff */}
               <div
                 style={{
-                  width: isSelected ? '14px' : '10px',
-                  height: isSelected ? '14px' : '10px',
+                  width: isSelected ? '18px' : '15px',
+                  height: isSelected ? '18px' : '15px',
                   borderRadius: '50%',
-                  backgroundColor: color,
-                  boxShadow: `0 0 12px ${color}`,
+                  background: `radial-gradient(circle, #ffffff 0%, ${color} 35%, ${color}aa 70%, transparent 100%)`,
+                  boxShadow: `0 0 16px ${color}, 0 0 28px ${color}66`,
                   transition: 'all 0.2s',
                 }}
               />

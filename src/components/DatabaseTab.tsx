@@ -32,7 +32,7 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
               </h1>
             </div>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-              Ecossistema de coleta, enriquecimento e curadoria de dados para o AIAttackMonitor
+              Ecossistema de coleta, enriquecimento e curadoria de dados para o AI Attack Monitor
             </p>
           </div>
           <button onClick={onClose} className="glass-button">

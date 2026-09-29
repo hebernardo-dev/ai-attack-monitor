@@ -72,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div>
             <div style={{ fontSize: '17px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>AIAttackMonitor</span>
+              <span>AI Attack Monitor</span>
               <span
                 style={{
                   fontSize: '9px',
