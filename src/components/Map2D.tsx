@@ -135,9 +135,9 @@ export const Map2D: React.FC<Map2DProps> = ({
           </div>
           <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>
             {hoveredIncident.deaths_count > 0 && (
-              <span style={{ color: '#ef4444', fontWeight: 'bold' }}>⚠️ {hoveredIncident.deaths_count} Morte(s) • </span>
+              <span style={{ color: '#ef4444', fontWeight: 'bold' }}>⚠️ {hoveredIncident.deaths_count} Fatalities • </span>
             )}
-            Clique para inspecionar
+            Click to inspect
           </div>
         </div>
       )}

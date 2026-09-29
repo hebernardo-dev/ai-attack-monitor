@@ -270,8 +270,8 @@ export const Globe3D: React.FC<Globe3DProps> = ({
                 ${hovered.title}
               </div>
               <div style="font-size: 11px; color: #94a3b8; margin-top: 6px;">
-                ${hovered.deaths_count > 0 ? `<span style="color: #ef4444; font-weight: bold;">⚠️ ${hovered.deaths_count} Morte(s)</span> • ` : ''}
-                Clique para examinar
+                ${hovered.deaths_count > 0 ? `<span style="color: #ef4444; font-weight: bold;">⚠️ ${hovered.deaths_count} Fatalities</span> • ` : ''}
+                Click to examine
               </div>
             `;
           }

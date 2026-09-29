@@ -64,8 +64,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
         if (onIncidentSubmitted) onIncidentSubmitted();
       }, 2000);
     } catch (err) {
-      console.error('Erro ao submeter:', err);
-      // Even in demo mode show success feedback
+      console.error('Submission error:', err);
       setSuccess(true);
       setTimeout(() => {
         setSuccess(false);
@@ -110,7 +109,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <AlertTriangle size={20} color="#ef4444" />
-            <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#fff' }}>Reportar Incidente com Agente de IA</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#fff' }}>Report AI Agent Incident</h2>
           </div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
             <X size={18} />
@@ -120,21 +119,21 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
         {success ? (
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <CheckCircle2 size={48} color="#10b981" style={{ margin: '0 auto 16px' }} />
-            <h3 style={{ fontSize: '18px', color: '#fff', marginBottom: '8px' }}>Incidente Submetido com Sucesso!</h3>
+            <h3 style={{ fontSize: '18px', color: '#fff', marginBottom: '8px' }}>Incident Submitted for Review!</h3>
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-              O caso foi registrado e entrará na fila de verificação para adição ao mapa global.
+              The incident has been logged and queued for editorial verification before appearing on the live global threat map.
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
               <label style={{ fontSize: '12px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                Título do Incidente / Notícia
+                Incident Title / Headline
               </label>
               <input
                 required
                 type="text"
-                placeholder="Ex: Adolescente sofre extorsão por bot de IA / Agente DeFi drenado"
+                placeholder="e.g. Chatbot induced teen self-harm / DeFi trading agent flash loan drain"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-light)', color: '#fff' }}
@@ -144,29 +143,29 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
               <div>
                 <label style={{ fontSize: '12px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                  Categoria
+                  Category
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', background: 'rgba(15, 23, 42, 0.9)', border: '1px solid var(--border-light)', color: '#fff' }}
                 >
-                  <option value="Lethal & Mental Harm">💔 Dano Vital & Mental</option>
+                  <option value="Lethal & Mental Harm">💔 Lethal & Mental Harm</option>
                   <option value="Autonomous Agent Hack">⚡ Autonomous Agent Hack</option>
-                  <option value="Financial Drain">💰 Financial Drain / Fraude</option>
+                  <option value="Financial Drain">💰 Financial Drain & Fraud</option>
                   <option value="Deepfake Extortion">🎭 Deepfake Extortion</option>
-                  <option value="Operational Failure">⚠️ Falha Operacional</option>
+                  <option value="Operational Failure">⚠️ Operational Failure</option>
                 </select>
               </div>
 
               <div>
                 <label style={{ fontSize: '12px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                  País
+                  Country
                 </label>
                 <input
                   required
                   type="text"
-                  placeholder="Ex: Brasil, EUA, etc."
+                  placeholder="e.g. United States, Brazil, UK"
                   value={formData.country}
                   onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                   style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-light)', color: '#fff' }}
@@ -177,7 +176,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
               <div>
                 <label style={{ fontSize: '12px', color: '#ef4444', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-                  Mortes / Fatalidades Reportadas
+                  Reported Fatalities
                 </label>
                 <input
                   type="number"
@@ -190,7 +189,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
 
               <div>
                 <label style={{ fontSize: '12px', color: '#f59e0b', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
-                  Prejuízo Financeiro Estimado (USD)
+                  Estimated Financial Loss (USD)
                 </label>
                 <input
                   type="number"
@@ -204,11 +203,11 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
 
             <div>
               <label style={{ fontSize: '12px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                Agentes / Modelos Envolvidos (separar por vírgula)
+                Identified Agents & Models (comma separated)
               </label>
               <input
                 type="text"
-                placeholder="Ex: Character.ai, Claude, Tesla FSD, Bot Telegram"
+                placeholder="e.g. Character.ai, Claude, Tesla FSD, Custom LLM Bot"
                 value={formData.entities_involved}
                 onChange={(e) => setFormData({ ...formData, entities_involved: e.target.value })}
                 style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-light)', color: '#fff' }}
@@ -217,12 +216,12 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
 
             <div>
               <label style={{ fontSize: '12px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                Link da Notícia / Processo Judicial Comprovatório
+                News Article / Legal Filing URL
               </label>
               <input
                 required
                 type="url"
-                placeholder="https://g1.globo.com/... ou nytimes.com/..."
+                placeholder="https://nytimes.com/... or bbc.com/..."
                 value={formData.source_url}
                 onChange={(e) => setFormData({ ...formData, source_url: e.target.value })}
                 style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-light)', color: '#fff' }}
@@ -231,12 +230,12 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
 
             <div>
               <label style={{ fontSize: '12px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                Resumo dos Fatos
+                Incident Summary / Overview
               </label>
               <textarea
                 required
                 rows={3}
-                placeholder="Descreva resumidamente o que aconteceu..."
+                placeholder="Provide a concise summary of the incident and documented damages..."
                 value={formData.summary}
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                 style={{ width: '100%', padding: '8px 12px', borderRadius: '8px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-light)', color: '#fff', resize: 'vertical' }}
@@ -258,7 +257,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, onInc
               }}
             >
               <Send size={16} />
-              {isSubmitting ? 'Enviando Registro...' : 'Submeter Incidente para Auditoria'}
+              {isSubmitting ? 'Submitting Record...' : 'Submit Incident for Verification'}
             </button>
           </form>
         )}

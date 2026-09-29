@@ -35,7 +35,7 @@ export const IncidentsListTab: React.FC<IncidentsListTabProps> = ({
     });
 
   const exportCSV = () => {
-    const headers = ['ID', 'Data', 'Titulo', 'Pais', 'Categoria', 'Severidade', 'Mortes', 'Prejuizo_USD', 'Fonte'];
+    const headers = ['ID', 'Date', 'Title', 'Country', 'Category', 'Severity', 'Fatalities', 'Financial_Loss_USD', 'Source_URL'];
     const rows = filtered.map((i) => [
       i.id,
       i.date,
@@ -51,7 +51,7 @@ export const IncidentsListTab: React.FC<IncidentsListTabProps> = ({
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'ai_incidents_export.csv');
+    link.setAttribute('download', 'ai_attack_incidents_export.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -78,20 +78,20 @@ export const IncidentsListTab: React.FC<IncidentsListTabProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <MapPin size={26} color="#00e5ff" />
               <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff' }}>
-                Catálogo Global de Incidentes Auditados
+                Global Catalog of Audited Incidents
               </h1>
             </div>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-              {filtered.length} casos catalogados com impactos humanos, financeiros e cibersegurança
+              {filtered.length} documented cases tracking human casualties, financial drainage, and security exploits
             </p>
           </div>
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <button onClick={exportCSV} className="glass-button">
-              <Download size={15} /> Exportar CSV
+              <Download size={15} /> Export CSV
             </button>
             <button onClick={onClose} className="glass-button">
-              Voltar ao Mapa
+              Back to Map
             </button>
           </div>
         </div>
@@ -102,7 +102,7 @@ export const IncidentsListTab: React.FC<IncidentsListTabProps> = ({
             <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '10px' }} />
             <input
               type="text"
-              placeholder="Filtrar por nome, país, categoria..."
+              placeholder="Filter by title, country, category..."
               value={filterText}
               onChange={(e) => setFilterText(e.target.value)}
               style={{
@@ -118,24 +118,24 @@ export const IncidentsListTab: React.FC<IncidentsListTabProps> = ({
           </div>
 
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Ordenar por:</span>
+            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Sort by:</span>
             <button
               className={`glass-button ${sortBy === 'date' ? 'active' : ''}`}
               onClick={() => setSortBy('date')}
             >
-              Data Recente
+              Recent Date
             </button>
             <button
               className={`glass-button ${sortBy === 'deaths' ? 'active' : ''}`}
               onClick={() => setSortBy('deaths')}
             >
-              Fatalidades
+              Fatalities
             </button>
             <button
               className={`glass-button ${sortBy === 'loss' ? 'active' : ''}`}
               onClick={() => setSortBy('loss')}
             >
-              Prejuízo ($)
+              Financial Loss ($)
             </button>
           </div>
         </div>
@@ -145,13 +145,13 @@ export const IncidentsListTab: React.FC<IncidentsListTabProps> = ({
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
             <thead>
               <tr style={{ background: 'rgba(255, 255, 255, 0.03)', borderBottom: '1px solid var(--border-light)', color: 'var(--text-muted)' }}>
-                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Data</th>
-                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Incidente / Agente</th>
-                <th style={{ padding: '14px 18px', fontWeight: 600 }}>País</th>
-                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Categoria</th>
-                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Impacto Fatal</th>
-                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Prejuízo (USD)</th>
-                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Ação</th>
+                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Date</th>
+                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Incident / Agent Involved</th>
+                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Country</th>
+                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Category</th>
+                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Fatal Impact</th>
+                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Loss (USD)</th>
+                <th style={{ padding: '14px 18px', fontWeight: 600 }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -214,7 +214,7 @@ export const IncidentsListTab: React.FC<IncidentsListTabProps> = ({
                   </td>
                   <td style={{ padding: '14px 18px' }}>
                     <span style={{ color: '#00e5ff', fontSize: '12px', fontWeight: 600 }}>
-                      Examinar ➔
+                      Examine ➔
                     </span>
                   </td>
                 </tr>

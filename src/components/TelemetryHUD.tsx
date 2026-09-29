@@ -46,7 +46,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
           <div>
             <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.05em' }}>
-              Total de Incidentes
+              Total Incidents Tracked
             </div>
             <div className="telemetry-mono" style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>
               {(metrics.totalIncidents / 1000).toFixed(1)}k+
@@ -80,7 +80,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(239, 68, 68, 0.1)', padding: '8px 12px', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.25)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Skull size={16} color="#ef4444" />
-              <span style={{ fontSize: '12px', color: '#fca5a5' }}>Vítimas Fatais / Suicídios</span>
+              <span style={{ fontSize: '12px', color: '#fca5a5' }}>Fatal Casualties / Harm</span>
             </div>
             <span className="telemetry-mono" style={{ fontSize: '13px', fontWeight: 700, color: '#ef4444' }}>{metrics.totalDeaths}</span>
           </div>
@@ -88,7 +88,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(245, 158, 11, 0.1)', padding: '8px 12px', borderRadius: '8px', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <DollarSign size={16} color="#f59e0b" />
-              <span style={{ fontSize: '12px', color: '#fcd34d' }}>Prejuízo Estimado</span>
+              <span style={{ fontSize: '12px', color: '#fcd34d' }}>Estimated Financial Loss</span>
             </div>
             <span className="telemetry-mono" style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>$412M+</span>
           </div>
@@ -97,7 +97,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
         {/* Historical Year Comparison */}
         <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-light)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Ano Atual (2026)</span>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Current Year (2026)</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span className="telemetry-mono" style={{ fontSize: '16px', fontWeight: 700, color: '#fff' }}>{metrics.incidentsYear2026}</span>
               <span style={{ fontSize: '11px', color: '#10b981', display: 'flex', alignItems: 'center' }}>
@@ -106,7 +106,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
             </div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Último Mês (Set 2026)</span>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Past 30 Days (Sep 2026)</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span className="telemetry-mono" style={{ fontSize: '16px', fontWeight: 700, color: '#fff' }}>{metrics.incidentsLastMonth}</span>
               <span style={{ fontSize: '11px', color: '#f59e0b' }}>+12%</span>
@@ -131,7 +131,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.05em' }}>
-              Agentes Autônomos sob Risco
+              Autonomous Agents Monitored
             </div>
             <div className="telemetry-mono" style={{ fontSize: '28px', fontWeight: 800, color: '#fff' }}>
               {metrics.monitoredAgentsCount}
@@ -167,7 +167,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
 
         <div style={{ marginTop: '12px', fontSize: '12px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
           <Radio size={14} color="#00e5ff" style={{ animation: 'radar-pulse 2s infinite' }} />
-          Escalada de incidentes com autonomia em 2026
+          Escalation of autonomous harm cases in 2026
         </div>
       </div>
 
@@ -186,8 +186,8 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
           <div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#fff' }}>Distribuição por Categoria</div>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Média global de ocorrências</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#fff' }}>Harm Category Distribution</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Global incident ratio</div>
           </div>
           <ChevronRight size={16} color="var(--text-muted)" />
         </div>
@@ -227,7 +227,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#10b981' }} />
-            <span>Drains Financeiros ({drainCount})</span>
+            <span>Financial Drain ({drainCount})</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#a855f7' }} />
@@ -235,23 +235,23 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#ef4444' }} />
-            <span style={{ color: '#fca5a5' }}>Dano Vital ({lethalCount})</span>
+            <span style={{ color: '#fca5a5' }}>Lethal & Harm ({lethalCount})</span>
           </div>
         </div>
 
-        {/* Progress Gauges (75% / 25% style from reference) */}
+        {/* Progress Gauges */}
         <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '18px', paddingTop: '14px', borderTop: '1px solid var(--border-light)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '38px', height: '38px', borderRadius: '50%', border: '3px solid #10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>
               75%
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Auditados & Validados</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Audited & Verified</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '38px', height: '38px', borderRadius: '50%', border: '3px solid #f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff' }}>
               25%
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Em Investigação</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Under Investigation</div>
           </div>
         </div>
       </div>
@@ -276,7 +276,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
               Live Telemetry Feed
             </span>
           </div>
-          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{incidents.length} monitorados</span>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{incidents.length} active monitors</span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '150px', overflowY: 'auto' }}>
@@ -301,7 +301,7 @@ export const TelemetryHUD: React.FC<TelemetryHUDProps> = ({
                   <span>{inc.country_code}</span>
                   <span>•</span>
                   <span style={{ color: inc.deaths_count > 0 ? '#ef4444' : 'var(--text-muted)' }}>
-                    {inc.deaths_count > 0 ? `⚠️ ${inc.deaths_count} Fatalidade` : inc.category}
+                    {inc.deaths_count > 0 ? `⚠️ ${inc.deaths_count} Fatality` : inc.category}
                   </span>
                 </div>
                 <div style={{ fontSize: '12px', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>

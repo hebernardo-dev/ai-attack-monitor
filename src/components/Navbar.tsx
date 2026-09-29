@@ -28,10 +28,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenReportModal,
 }) => {
   const categories: { label: string; value: IncidentCategory | 'ALL' }[] = [
-    { label: 'Todos', value: 'ALL' },
-    { label: '💔 Dano Vital & Mental', value: 'Lethal & Mental Harm' },
+    { label: 'All Incidents', value: 'ALL' },
+    { label: '💔 Lethal & Harm', value: 'Lethal & Mental Harm' },
     { label: '⚡ Agent Hacks', value: 'Autonomous Agent Hack' },
-    { label: '💰 Drains Financeiros', value: 'Financial Drain' },
+    { label: '💰 Financial Drains', value: 'Financial Drain' },
     { label: '🎭 Deepfakes', value: 'Deepfake Extortion' },
   ];
 
@@ -100,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Middle: Search Box & Category Filters */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, maxWidth: '620px', margin: '0 24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, maxWidth: '640px', margin: '0 24px' }}>
         {/* Search input */}
         <div
           style={{
@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <Search size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '10px' }} />
           <input
             type="text"
-            placeholder="Buscar incidentes, agentes, países..."
+            placeholder="Search incidents, agents, countries..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             style={{
@@ -147,7 +147,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Right: 3D/2D Mode Toggle & Report Incident Button */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {/* 3D / 2D Switcher (from reference image) */}
         <div
           style={{
             display: 'flex',
@@ -211,7 +210,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
         >
           <PlusCircle size={14} color="#ef4444" />
-          Reportar Incidente
+          Report Incident
         </button>
       </div>
     </header>

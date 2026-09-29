@@ -22,10 +22,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const navItems = [
     { id: 'map', icon: Globe2, tooltip: 'Threat Map 3D/2D' },
-    { id: 'incidents', icon: MapPin, tooltip: 'Lista de Incidentes' },
-    { id: 'database', icon: Database, tooltip: 'Fontes & Repositórios (AIID)' },
-    { id: 'security', icon: ShieldAlert, tooltip: 'Arquitetura de Segurança & RLS' },
-    { id: 'analytics', icon: BarChart3, tooltip: 'Estatísticas & Prejuízos' },
+    { id: 'incidents', icon: MapPin, tooltip: 'Audited Incident Catalog' },
+    { id: 'database', icon: Database, tooltip: 'Data Sources & Repositories (AIID)' },
+    { id: 'security', icon: ShieldAlert, tooltip: 'Security & RLS Architecture' },
+    { id: 'analytics', icon: BarChart3, tooltip: 'Analytics & Financial Losses' },
   ] as const;
 
   return (
@@ -121,7 +121,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
         {/* Supabase status indicator */}
         <div
-          title={isSupabaseConnected ? 'Supabase Conectado (Online)' : 'Modo Demonstração / Dados Locais AIID'}
+          title={isSupabaseConnected ? 'Supabase Live Connected' : 'Demo Mode / AIID Local Dataset'}
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -145,7 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <button
-          title="Ajuda e Documentação"
+          title="Security & Documentation"
           onClick={() => onTabChange('security')}
           style={{
             background: 'none',

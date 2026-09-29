@@ -28,19 +28,19 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Database size={26} color="#00e5ff" />
               <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff' }}>
-                Fontes de Dados & Ingestão Contínua
+                Data Sources & Continuous Ingestion
               </h1>
             </div>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-              Ecossistema de coleta, enriquecimento e curadoria de dados para o AI Attack Monitor
+              Data harvesting, enrichment and editorial curation ecosystem powering AI Attack Monitor
             </p>
           </div>
           <button onClick={onClose} className="glass-button">
-            Voltar ao Mapa
+            Back to Map
           </button>
         </div>
 
-        {/* Status Supabase Card */}
+        {/* Supabase Status Card */}
         <div
           className="glass-panel"
           style={{
@@ -55,12 +55,12 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
               <Server size={28} color={isSupabaseConfigured ? '#10b981' : '#f59e0b'} />
               <div>
                 <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff' }}>
-                  Conexão Supabase Database
+                  Supabase Database Connection
                 </h3>
                 <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '2px' }}>
                   {isSupabaseConfigured
-                    ? 'Conectado com sucesso ao seu PostgreSQL Supabase com RLS ativo.'
-                    : 'Operando em modo Demonstração com o dataset local do AI Incident Database (AIID).'}
+                    ? 'Connected to your Supabase PostgreSQL cluster with active Row Level Security (RLS).'
+                    : 'Operating in Demo Mode backed by local verified snapshots from the AI Incident Database.'}
                 </p>
               </div>
             </div>
@@ -75,18 +75,18 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
                 border: `1px solid ${isSupabaseConfigured ? '#10b981' : '#f59e0b'}`,
               }}
             >
-              {isSupabaseConfigured ? '● SUPABASE ONLINE' : '● DATASET LOCAL'}
+              {isSupabaseConfigured ? '● SUPABASE ONLINE' : '● LOCAL DATASET'}
             </span>
           </div>
         </div>
 
-        {/* Grid de Fontes Principais */}
+        {/* Main Data Sources Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '36px' }}>
-          {/* Fonte 1: AIID */}
+          {/* Source 1: AIID */}
           <div className="glass-panel" style={{ padding: '22px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
               <div style={{ fontSize: '12px', fontWeight: 700, color: '#00e5ff', textTransform: 'uppercase' }}>
-                Base Histórica Primária
+                Primary Historical Archive
               </div>
               <a href="https://incidentdatabase.ai" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)' }}>
                 <ExternalLink size={16} />
@@ -96,7 +96,7 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
               AI Incident Database (AIID)
             </h3>
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-              O repositório científico de referência mundial da Responsible AI Collaborative. Inclui milhares de incidentes auditados, suicídios associados a chatbots, atropelamentos de carros autônomos e falhas éticas.
+              The authoritative global research repository maintained by the Responsible AI Collaborative. Indexes thousands of audited harms, companion chatbot suicides, autonomous vehicle fatalities, and systemic biases.
             </p>
             <div style={{ marginTop: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <span className="glass-button" style={{ fontSize: '11px', padding: '3px 8px' }}>GraphQL API</span>
@@ -104,11 +104,11 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Fonte 2: AIAAIC */}
+          {/* Source 2: AIAAIC */}
           <div className="glass-panel" style={{ padding: '22px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
               <div style={{ fontSize: '12px', fontWeight: 700, color: '#3b82f6', textTransform: 'uppercase' }}>
-                Controvérsias Globais
+                Global Controversies
               </div>
               <a href="https://www.aiaaic.org" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)' }}>
                 <ExternalLink size={16} />
@@ -118,27 +118,27 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
               AIAAIC Repository
             </h3>
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-              Iniciativa independente focada em catalogar desastres de automação, algoritmos corporativos e armas autônomas, mantida com curadoria acadêmica e jornalística.
+              An independent scholarly initiative cataloging algorithm disasters, corporate automation controversies, and autonomous weapon systems with rigorous cross-referencing.
             </p>
             <div style={{ marginTop: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span className="glass-button" style={{ fontSize: '11px', padding: '3px 8px' }}>CSV Dataflow</span>
+              <span className="glass-button" style={{ fontSize: '11px', padding: '3px 8px' }}>CSV Data Pipeline</span>
               <span className="glass-button" style={{ fontSize: '11px', padding: '3px 8px' }}>Open Research</span>
             </div>
           </div>
 
-          {/* Fonte 3: Pipeline de Scraper e Notícias */}
+          {/* Source 3: Live Pipeline */}
           <div className="glass-panel" style={{ padding: '22px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
               <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', textTransform: 'uppercase' }}>
-                Tempo Real 24/7
+                24/7 Real-Time
               </div>
               <Cpu size={16} color="#10b981" />
             </div>
             <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
-              Pipeline Noticioso & LLM Triage
+              News Ingestion & LLM Triage
             </h3>
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-              Rotinas agendadas (Cron) que monitoram Google News RSS, The Verge, BleepingComputer e Wired com extração automática via modelo de linguagem para classificar coordenadas, danos e prejuízos.
+              Automated crawlers scanning Google News RSS, The Verge, BleepingComputer, and Wired with LLM extraction to structure coordinates, damages, and financial losses in real time.
             </p>
             <div style={{ marginTop: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <span className="glass-button" style={{ fontSize: '11px', padding: '3px 8px' }}>Gemini Extraction</span>
@@ -147,18 +147,18 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
           </div>
         </div>
 
-        {/* Script SQL Supabase pronto para copiar */}
+        {/* Supabase SQL Migration Script */}
         <div className="glass-panel" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
             <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff' }}>
-              Schema SQL do Banco de Dados (Supabase)
+              Supabase SQL Database Schema
             </h3>
             <span style={{ fontSize: '12px', color: '#00e5ff', fontFamily: 'var(--font-mono)' }}>
               supabase/schema.sql
             </span>
           </div>
           <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-            Copie o script abaixo e execute no <strong>SQL Editor</strong> do painel do seu projeto no Supabase para criar a tabela com Row Level Security (RLS) e índices espaciais:
+            Copy and execute the script below in your Supabase <strong>SQL Editor</strong> to configure table schema, spatial indexes, and Row Level Security (RLS) policies:
           </p>
           <pre
             style={{
@@ -173,7 +173,7 @@ export const DatabaseTab: React.FC<DatabaseTabProps> = ({ onClose }) => {
               maxHeight: '260px',
             }}
           >
-{`-- Criar tabela de Incidentes
+{`-- Create Incidents Table
 CREATE TABLE IF NOT EXISTS public.incidents (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   title TEXT NOT NULL,
@@ -199,16 +199,16 @@ CREATE TABLE IF NOT EXISTS public.incidents (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Ativar Row Level Security (RLS)
+-- Enable Row Level Security (RLS)
 ALTER TABLE public.incidents ENABLE ROW LEVEL SECURITY;
 
--- Política 1: Leitura pública irrestrita para qualquer visitante
+-- Policy 1: Public read access for any visitor
 CREATE POLICY "Public Read Access" 
 ON public.incidents 
 FOR SELECT 
 USING (true);
 
--- Política 2: Inserção protegida (somente admin autenticado ou chave service_role de scrapers)
+-- Policy 2: Secure insert/update restricted to service_role and verified admins
 CREATE POLICY "Service Role Full Access" 
 ON public.incidents 
 FOR ALL 

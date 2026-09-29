@@ -21,10 +21,10 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
   if (!incident) return null;
 
   const severityColors = {
-    critical: { bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.4)', text: '#ef4444', label: 'Crítico / Dano Vital' },
-    high: { bg: 'rgba(245, 158, 11, 0.15)', border: 'rgba(245, 158, 11, 0.4)', text: '#f59e0b', label: 'Alto Risco / Exploração' },
-    medium: { bg: 'rgba(168, 85, 247, 0.15)', border: 'rgba(168, 85, 247, 0.4)', text: '#a855f7', label: 'Médio / Extorsão' },
-    low: { bg: 'rgba(0, 229, 255, 0.15)', border: 'rgba(0, 229, 255, 0.4)', text: '#00e5ff', label: 'Moderado / Operacional' },
+    critical: { bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.4)', text: '#ef4444', label: 'Critical / Lethal Harm' },
+    high: { bg: 'rgba(245, 158, 11, 0.15)', border: 'rgba(245, 158, 11, 0.4)', text: '#f59e0b', label: 'High Risk / Exploitation' },
+    medium: { bg: 'rgba(168, 85, 247, 0.15)', border: 'rgba(168, 85, 247, 0.4)', text: '#a855f7', label: 'Moderate / Extortion' },
+    low: { bg: 'rgba(0, 229, 255, 0.15)', border: 'rgba(0, 229, 255, 0.4)', text: '#00e5ff', label: 'Operational Failure' },
   };
 
   const sev = severityColors[incident.severity];
@@ -101,7 +101,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
                   fontWeight: 600,
                 }}
               >
-                <ShieldCheck size={14} /> Auditado
+                <ShieldCheck size={14} /> Audited Dossier
               </span>
             )}
           </div>
@@ -152,7 +152,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: incident.deaths_count > 0 ? '#ef4444' : 'var(--text-muted)', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' }}>
-              <Skull size={15} /> Vítimas Fatais
+              <Skull size={15} /> Fatal Casualties
             </div>
             <div className="telemetry-mono" style={{ fontSize: '22px', fontWeight: 800, color: incident.deaths_count > 0 ? '#ef4444' : '#fff', marginTop: '6px' }}>
               {incident.deaths_count}
@@ -169,7 +169,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#f59e0b', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' }}>
-              <DollarSign size={15} /> Prejuízo Estimado
+              <DollarSign size={15} /> Estimated Loss
             </div>
             <div className="telemetry-mono" style={{ fontSize: '20px', fontWeight: 800, color: '#fff', marginTop: '6px' }}>
               {incident.financial_loss_usd > 0 
@@ -188,7 +188,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#3b82f6', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' }}>
-              <Target size={15} /> Tipo de Alvo
+              <Target size={15} /> Target Entity
             </div>
             <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginTop: '8px' }}>
               {incident.target_type}
@@ -199,7 +199,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
         {/* Detailed Dossier Text */}
         <div style={{ marginBottom: '22px' }}>
           <div style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px', letterSpacing: '0.05em' }}>
-            Relatório de Inteligência
+            Intelligence Report
           </div>
           <p style={{ fontSize: '14px', color: 'var(--text-primary)', lineHeight: '1.6', marginBottom: '12px' }}>
             {incident.summary}
@@ -212,7 +212,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
         {/* Entities Involved */}
         <div style={{ marginBottom: '22px' }}>
           <div style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>
-            Agentes e Tecnologias Identificadas
+            Identified Agents & Models
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {incident.entities_involved.map((ent, idx) => (
@@ -239,7 +239,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
         {/* Source link footer */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '16px', borderTop: '1px solid var(--border-light)' }}>
           <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-            Fonte Jornalística / Jurídica: <strong style={{ color: '#fff' }}>{incident.source_name}</strong>
+            Journalistic / Legal Source: <strong style={{ color: '#fff' }}>{incident.source_name}</strong>
           </div>
           <a
             href={incident.source_url}
@@ -253,7 +253,7 @@ export const IncidentModal: React.FC<IncidentModalProps> = ({ incident, onClose 
               fontWeight: 600,
             }}
           >
-            <span>Ver Notícia Original</span>
+            <span>View Original Source</span>
             <ExternalLink size={14} />
           </a>
         </div>
